@@ -6,7 +6,6 @@ import CoreTransferable
 @MainActor
 class FrameModel: ObservableObject {
     
-    // MARK: - Profile Image
     enum ImageState {
         case empty
         case loading(Progress)
@@ -44,8 +43,15 @@ class FrameModel: ObservableObject {
             }
         }
     }
-    
     @Published var frameId: String
+    
+    @Published var currentFrame: FrameState = .clear
+
+    private var currentFrameIndicator: Int = 0 {
+        didSet {
+            currentFrame = FrameState(rawValue: currentFrameIndicator % FrameState.allCases.count) ?? .clear
+        }
+    }
     
     var nextFrameId: String? {
         let imageIndex = loadImageIndex().sorted()
@@ -64,6 +70,10 @@ class FrameModel: ObservableObject {
     
     func closeFrame() {
         deleteImage()
+    }
+    
+    func updateFrame() {
+        currentFrameIndicator += 1
     }
     
     // MARK: - Private Methods
@@ -114,6 +124,31 @@ class FrameModel: ObservableObject {
                     self.imageState = .failure(error)
                 }
             }
+        }
+    }
+}
+
+enum FrameState: Int, CaseIterable {
+    case clear
+    case black
+    case white
+    case wood
+    case darkWood
+}
+
+extension FrameState {
+    var colour: Color {
+        return switch self {
+        case .clear:
+            Color.clear
+        case .black:
+            .black
+        case .white:
+            .white
+        case .wood:
+            Color("LightBrown")
+        case .darkWood:
+            Color("DarkBrown")
         }
     }
 }

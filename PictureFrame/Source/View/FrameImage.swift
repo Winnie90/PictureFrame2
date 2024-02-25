@@ -13,9 +13,19 @@ struct FrameImage: View {
     var body: some View {
         switch frameModel.imageState {
         case .success(let image):
-            image
-                .resizable()
-                .scaledToFill()
+            if frameModel.currentFrame == .clear {
+                image
+                    .resizable()
+                    .scaledToFill()
+            } else {
+                image
+                    .resizable()
+                    .clipShape(RoundedRectangle(cornerRadius: 50))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                            .stroke(frameModel.currentFrame.colour, lineWidth: 40)
+                    )
+            }
         case .loading:
             ProgressView()
         case .empty:

@@ -29,6 +29,14 @@ struct FrameView: View {
                 ToolbarItem(placement: .bottomOrnament) {
                     NewFrameButton()
                 }
+                ToolbarItem(placement: .bottomOrnament) {
+                    Button {
+                        viewModel.updateFrame()
+                    } label: {
+                        Image(systemName: "photo.artframe")
+                            .font(.system(size: 28))
+                    }
+                }
             }
     }
 }
