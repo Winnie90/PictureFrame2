@@ -25,7 +25,7 @@ struct FrameView: View {
             }
             .sheet(isPresented: $showingSheet) {
                 FramePicker(viewModel: viewModel)
-                    .frame(width: 400, height: 400)
+                    .frame(width: 400, height: 340)
             }
             .toolbar {
                 ToolbarItem(placement: .bottomOrnament) {
@@ -41,7 +41,11 @@ struct FrameView: View {
                         Image(systemName: "photo.artframe")
                             .font(.system(size: 28))
                     }
+                    .accessibilityLabel("Customise your frame")
                 }
+            }
+            .onTapGesture {
+                showingSheet = false
             }
     }
 }
@@ -49,17 +53,15 @@ struct FrameView: View {
 struct FramePicker: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var viewModel: FrameModel
-    @State var lineWidth: Double = 40.0
     
     init(viewModel: FrameModel) {
         self.viewModel = viewModel
-        self.lineWidth = viewModel.lineWidth
     }
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
-                Text("Frame Picker")
+                Text("Frame")
                     .font(.title)
                 Spacer()
                 Button {
@@ -70,29 +72,29 @@ struct FramePicker: View {
                 }
                 .buttonStyle(.borderless)
             }
-            List {
-                Section(header:
-                    Text("Color")
-                        .font(.headline)
-                ) {
-                    ColourPicker(viewModel: viewModel)
+            Spacer()
+            
+            Text("Color")
+                .font(.headline)
+                .padding(.bottom, 8)
+                .accessibilityAddTraits(.isHeader)
+            ColourPicker(viewModel: viewModel)
+                .accessibilityLabel("Pick the colour of the frame")
+            
+            Spacer()
+            
+            Text("Width")
+                .font(.headline)
+                .padding(.bottom, 8)
+                .accessibilityAddTraits(.isHeader)
+            Picker("", selection: $viewModel.frameWidth) {
+                ForEach(FrameSize.allCases, id: \.self) { size in
+                    Text(size.title).tag(size)
                 }
-                Section(header:
-                    Text("Width")
-                        .font(.headline)
-                ) {
-                    HStack {
-                        Slider(value: $lineWidth, in: 1...80) { editing in
-                            if editing == false {
-                                //viewModel.lineWidth = lineWidth
-                            }
-                        }
-                        Text("\(lineWidth, specifier: "%.1f")")
-                    }
-                }
-            }
+            }.pickerStyle(.segmented)
+            .accessibilityLabel("Pick how thick the frame is")
         }
-        .padding(20)
+        .padding(40)
     }
 }
 

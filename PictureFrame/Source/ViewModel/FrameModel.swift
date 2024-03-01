@@ -45,14 +45,8 @@ class FrameModel: ObservableObject {
     }
     @Published var frameId: String
     @Published var currentFrame: FrameState = .clear
-    @Published var lineWidth: Double = 40.0 {
-        didSet {
-            floatLineWidth = CGFloat(lineWidth)
-        }
-    }
-    
-    @Published var floatLineWidth: CGFloat = 40.0
-    
+    @Published var frameWidth: FrameSize = .small
+        
     var nextFrameId: String? {
         let imageIndex = loadImageIndex().sorted()
         guard let currentIndex = imageIndex.firstIndex(of: frameId), let nextIndex = imageIndex[safe: currentIndex + 1] else {
@@ -145,6 +139,36 @@ extension FrameState {
             Color("LightBrown")
         case .darkWood:
             Color("DarkBrown")
+        }
+    }
+}
+
+enum FrameSize: Int, CaseIterable {
+    case small
+    case medium
+    case large
+}
+
+extension FrameSize {
+    var size: Double {
+        return switch self {
+        case .small:
+            40.0
+        case .medium:
+            80.0
+        case .large:
+            120.0
+        }
+    }
+    
+    var title: String {
+        return switch self {
+        case .small:
+            "Small"
+        case .medium:
+            "Medium"
+        case .large:
+            "Large"
         }
     }
 }
