@@ -44,14 +44,14 @@ class FrameModel: ObservableObject {
         }
     }
     @Published var frameId: String
-    
     @Published var currentFrame: FrameState = .clear
-
-    private var currentFrameIndicator: Int = 0 {
+    @Published var lineWidth: Double = 40.0 {
         didSet {
-            currentFrame = FrameState(rawValue: currentFrameIndicator % FrameState.allCases.count) ?? .clear
+            floatLineWidth = CGFloat(lineWidth)
         }
     }
+    
+    @Published var floatLineWidth: CGFloat = 40.0
     
     var nextFrameId: String? {
         let imageIndex = loadImageIndex().sorted()
@@ -70,10 +70,6 @@ class FrameModel: ObservableObject {
     
     func closeFrame() {
         deleteImage()
-    }
-    
-    func updateFrame() {
-        currentFrameIndicator += 1
     }
     
     // MARK: - Private Methods

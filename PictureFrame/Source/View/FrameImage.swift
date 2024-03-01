@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct FrameImage: View {
-    @ObservedObject var frameModel: FrameModel
+    @ObservedObject var viewModel: FrameModel
     
     var body: some View {
-        switch frameModel.imageState {
+        switch viewModel.imageState {
         case .success(let image):
-            if frameModel.currentFrame == .clear {
+            if viewModel.currentFrame == .clear {
                 image
                     .resizable()
                     .scaledToFill()
@@ -23,14 +23,14 @@ struct FrameImage: View {
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .overlay(
                         RoundedRectangle(cornerRadius: 50)
-                            .stroke(frameModel.currentFrame.colour, lineWidth: 40)
+                            .stroke(viewModel.currentFrame.colour, lineWidth: viewModel.lineWidth)
                     )
             }
         case .loading:
             ProgressView()
         case .empty:
             VStack {
-                PhotoPicker(viewModel: frameModel)
+                PhotoPicker(viewModel: viewModel)
                 Text("Please select a photo.")
                     .font(.headline)
             }
