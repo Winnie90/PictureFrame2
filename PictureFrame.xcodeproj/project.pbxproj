@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		831172902B9B0AF8001F275E /* FrameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8311728F2B9B0AF8001F275E /* FrameState.swift */; };
+		831172922B9B0B14001F275E /* FrameWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831172912B9B0B14001F275E /* FrameWidth.swift */; };
 		8328A9002B815AE300F00A6E /* NewFrameButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8328A8FF2B815AE300F00A6E /* NewFrameButton.swift */; };
 		8328A9022B815B0C00F00A6E /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8328A9012B815B0C00F00A6E /* PhotoPicker.swift */; };
 		8328A9052B815B5000F00A6E /* FrameImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8328A9042B815B5000F00A6E /* FrameImage.swift */; };
@@ -31,6 +33,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8311728F2B9B0AF8001F275E /* FrameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameState.swift; sourceTree = "<group>"; };
+		831172912B9B0B14001F275E /* FrameWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameWidth.swift; sourceTree = "<group>"; };
 		8328A8FF2B815AE300F00A6E /* NewFrameButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewFrameButton.swift; sourceTree = "<group>"; };
 		8328A9012B815B0C00F00A6E /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		8328A9042B815B5000F00A6E /* FrameImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameImage.swift; sourceTree = "<group>"; };
@@ -100,6 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				83AD30592B8608F400F3E682 /* AppStorage.swift */,
+				8311728F2B9B0AF8001F275E /* FrameState.swift */,
+				831172912B9B0B14001F275E /* FrameWidth.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -259,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				831172922B9B0B14001F275E /* FrameWidth.swift in Sources */,
 				8328A9002B815AE300F00A6E /* NewFrameButton.swift in Sources */,
 				83AD305A2B8608F400F3E682 /* AppStorage.swift in Sources */,
 				8328A9052B815B5000F00A6E /* FrameImage.swift in Sources */,
@@ -266,6 +273,7 @@
 				8328A9022B815B0C00F00A6E /* PhotoPicker.swift in Sources */,
 				83E649ED2B7F825F00EB0A43 /* FrameView.swift in Sources */,
 				83E649EB2B7F825F00EB0A43 /* PictureFrameApp.swift in Sources */,
+				831172902B9B0AF8001F275E /* FrameState.swift in Sources */,
 				83CE52232B81065600211826 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

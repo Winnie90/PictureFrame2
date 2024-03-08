@@ -44,8 +44,16 @@ class FrameModel: ObservableObject {
         }
     }
     @Published var frameId: String
-    @Published var currentFrame: FrameState = .clear
-    @Published var frameWidth: FrameSize = .small
+    @Published var currentFrame: FrameState = .clear {
+        didSet {
+            saveFrame()
+        }
+    }
+    @Published var frameWidth: FrameWidth = .small {
+        didSet {
+            saveFrame()
+        }
+    }
         
     var nextFrameId: String? {
         let imageIndex = loadImageIndex().sorted()
@@ -60,6 +68,7 @@ class FrameModel: ObservableObject {
         if let image = loadImage() {
             imageState = .success(Image(uiImage: image))
         }
+        loadFrame()
     }
     
     func closeFrame() {
@@ -97,6 +106,16 @@ class FrameModel: ObservableObject {
         AppStorage.store(imageIndex: imageIndex)
     }
     
+    private func saveFrame() {
+        AppStorage.store(id: frameId, frame: currentFrame.rawValue, width: frameWidth.rawValue)
+    }
+    
+    private func loadFrame() {
+        let frameTuple = AppStorage.retrieveFrame(id: frameId)
+        currentFrame = FrameState(rawValue: frameTuple.frame) ?? .clear
+        frameWidth = FrameWidth(rawValue: frameTuple.width) ?? .small
+    }
+    
     private func loadTransferable(from imageSelection: PhotosPickerItem) -> Progress {
         return imageSelection.loadTransferable(type: ProfileImage.self) { result in
             DispatchQueue.main.async {
@@ -114,61 +133,6 @@ class FrameModel: ObservableObject {
                     self.imageState = .failure(error)
                 }
             }
-        }
-    }
-}
-
-enum FrameState: Int, CaseIterable {
-    case clear
-    case black
-    case white
-    case wood
-    case darkWood
-}
-
-extension FrameState {
-    var colour: Color {
-        return switch self {
-        case .clear:
-            Color.clear
-        case .black:
-            .black
-        case .white:
-            .white
-        case .wood:
-            Color("LightBrown")
-        case .darkWood:
-            Color("DarkBrown")
-        }
-    }
-}
-
-enum FrameSize: Int, CaseIterable {
-    case small
-    case medium
-    case large
-}
-
-extension FrameSize {
-    var size: Double {
-        return switch self {
-        case .small:
-            40.0
-        case .medium:
-            80.0
-        case .large:
-            120.0
-        }
-    }
-    
-    var title: String {
-        return switch self {
-        case .small:
-            "Small"
-        case .medium:
-            "Medium"
-        case .large:
-            "Large"
         }
     }
 }

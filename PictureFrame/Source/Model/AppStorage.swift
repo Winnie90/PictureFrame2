@@ -47,7 +47,34 @@ struct AppStorage {
         return nil
     }
     
+    static func store(id: String, frame: Int, width: Double) {
+        do {
+            let frameStorage = FrameStorage(frame: frame, width: width)
+            let data = try JSONEncoder().encode(frameStorage)
+            let filename = documentsDirectory.appendingPathComponent("\(id)-frame.json")
+            try data.write(to: filename)
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func retrieveFrame(id: String) -> (frame: Int, width: Double) {
+        do {
+            let url = URL.documentsDirectory.appending(path: "\(id)-frame.json")
+            let frameStorage =  try JSONDecoder().decode(FrameStorage.self, from: Data(contentsOf: url))
+            return (frame: frameStorage.frame, width: frameStorage.width)
+        } catch {
+            print(error.localizedDescription)
+        }
+        return (frame: 0, width: 0.0)
+    }
+    
     private static var documentsDirectory: URL {
         FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     }
+}
+
+struct FrameStorage: Codable {
+    let frame: Int
+    let width: Double
 }

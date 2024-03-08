@@ -23,7 +23,7 @@ struct FrameImage: View {
                     .clipShape(RoundedRectangle(cornerRadius: 50))
                     .overlay(
                         RoundedRectangle(cornerRadius: 50)
-                            .stroke(viewModel.currentFrame.colour, lineWidth: viewModel.frameWidth.size)
+                            .stroke(viewModel.currentFrame.colour, lineWidth: CGFloat(viewModel.frameWidth.rawValue))
                     )
             }
         case .loading:

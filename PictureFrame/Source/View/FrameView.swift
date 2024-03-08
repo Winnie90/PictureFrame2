@@ -88,7 +88,7 @@ struct FramePicker: View {
                 .padding(.bottom, 8)
                 .accessibilityAddTraits(.isHeader)
             Picker("", selection: $viewModel.frameWidth) {
-                ForEach(FrameSize.allCases, id: \.self) { size in
+                ForEach(FrameWidth.allCases, id: \.self) { size in
                     Text(size.title).tag(size)
                 }
             }.pickerStyle(.segmented)
